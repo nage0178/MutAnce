@@ -1,0 +1,59 @@
+CC = gcc
+CFLAGS =  -static -g  -Wall -O3
+#CFLAGS =  -g  -Wall 
+#CFLAGS =  -g  -O3
+LIBS=-lgsl -lgslcblas -lm 
+
+MutAnce: MutAnce.o parseMCMC.o util.o phylip.o maps.o variantSites.o likelihood.o simulate.o cfile.o list.o summary.o
+	$(CC) $(CFLAGS) MutAnce.o parseMCMC.o util.o phylip.o maps.o variantSites.o likelihood.o simulate.o cfile.o list.o summary.o -o MutAnce  $(LIBS)
+
+MutAnce.o: MutAnce.c MutAnce.h
+	$(CC) $(CFLAGS) -c $< $(LIBS)
+
+parseMCMC.o: parseMCMC.c MutAnce.h
+	$(CC) $(CFLAGS) -c $< $(LIBS)
+
+util.o: util.c MutAnce.h
+	$(CC) $(CFLAGS) -c $< $(LIBS)
+
+phylip.o: phylip.c MutAnce.h
+	$(CC) $(CFLAGS) -c $< $(LIBS)
+
+maps.o: maps.c MutAnce.h
+	$(CC) $(CFLAGS) -c $< $(LIBS)
+
+variantSites.o: variantSites.c MutAnce.h
+	$(CC) $(CFLAGS) -c $< $(LIBS)
+
+likelihood.o: likelihood.c MutAnce.h
+	$(CC) $(CFLAGS) -c $< $(LIBS)
+
+simulate.o: simulate.c MutAnce.h
+	$(CC) $(CFLAGS) -c $< $(LIBS)
+
+cfile.o: cfile.c MutAnce.h
+	$(CC) $(CFLAGS) -c $< $(LIBS)
+
+list.o: list.c MutAnce.h
+	$(CC) $(CFLAGS) -c $< $(LIBS)
+
+summary.o: summary.c MutAnce.h
+	$(CC) $(CFLAGS) -c $< $(LIBS)
+
+test: test.c likelihood.c util.c simulate.c MutAnce.h
+	$(CC) $(CFLAGS) test.c likelihood.c util.c simulate.c -o test $(LIBS)
+
+testBranch: testBranch.c  simulate.c MutAnce.h
+	$(CC) $(CFLAGS) testBranch.c  simulate.c -o testBranch $(LIBS)
+test2Mut: test2Mut.c  simulate.c util.c likelihood.c MutAnce.h
+	$(CC) $(CFLAGS) test2Mut.c  util.c simulate.c likelihood.c -o test2Mut $(LIBS)
+
+testAsymmetric: testAsymmetric.c likelihood.c util.c MutAnce.h
+	$(CC) $(CFLAGS) testAsymmetric.c likelihood.c util.c -o testAsymmetric $(LIBS)
+clean: 
+	rm -f *.o
+	rm -f MutAnce
+	rm -f test
+	rm -f testBranch
+	rm -f test2Mut
+	rm -f testAsymmetric
