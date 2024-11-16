@@ -1,0 +1,15 @@
+a1	A
+a2	A
+a3	A
+a4	A
+a5	A
+b1	B
+b2	B
+b3	B
+b4	B
+b5	B
+c1	C
+c2	C
+c3	C
+c4	C
+c5	C
