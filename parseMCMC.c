@@ -304,7 +304,7 @@ int parseMigration(gnode_t * node, char * migString, int currChar) {
 		int index = 0;
 		int numME = 1;
 		while ((residualString + currChar2 + index)[0] != ';')  {
-			if ((residualString + currChar2 + index)[0] == ',')
+			if ((residualString + currChar2 + index)[0] == '$')
 				numME++;
 			index++;
 		}
@@ -329,7 +329,7 @@ int parseMigration(gnode_t * node, char * migString, int currChar) {
 			strcpy(node->mi->me[i].target, dest);
       	                currChar2 = currChar2 + strlen(dest) + 1 ;
 
-			source = strtok(residualString + currChar2, ",;");
+			source = strtok(residualString + currChar2, "$;");
 			node->mi->me[i].source = xmalloc((strlen(source) + 1) * sizeof(char));
 			strcpy(node->mi->me[i].source, source);
       	                currChar2 = currChar2 + strlen(source) + 1 ;

@@ -364,6 +364,25 @@ void summary (mutHist_t ** mutationHist, int varsite, long samples, msa_t * msa,
 
   printf("\n");
   /* Two mutations */
+  printf("population of mutation 1\n");
+  for (int k = 0; k < mutPop->count; k++) {
+	  printf("2_mut_pop_1_%s\t", pops[k]);
+    for (int j = 0; j < varsite; j++) {
+      printf("%f\t", (double) pop2[j][k] / (sum_two_mut[j]));
+    }
+  printf("\n");
+  }
+  printf("\n");
+
+  printf("population of mutation 2\n");
+  for (int k = 0; k < mutPop->count; k++) {
+	  printf("2_mut_pop_2%s\t", pops[k]);
+    for (int j = 0; j < varsite; j++) {
+      printf("%f\t", (double) pop1[j][k] / (sum_two_mut[j]));
+    }
+  printf("\n");
+  }
+  printf("\n");
   printf("2_mut_time_1\t");
 
   double * mean1 = xcalloc(varsite , sizeof(double));
@@ -440,25 +459,6 @@ void summary (mutHist_t ** mutationHist, int varsite, long samples, msa_t * msa,
   printf("\n");
 
 
-  printf("population of mutation 1\n");
-  for (int k = 0; k < mutPop->count; k++) {
-	  printf("2_mut_pop_1_%s\t", pops[k]);
-    for (int j = 0; j < varsite; j++) {
-      printf("%f\t", (double) pop2[j][k] / (sum_two_mut[j]));
-    }
-  printf("\n");
-  }
-  printf("\n");
-
-  printf("population of mutation 2\n");
-  for (int k = 0; k < mutPop->count; k++) {
-	  printf("2_mut_pop_2%s\t", pops[k]);
-    for (int j = 0; j < varsite; j++) {
-      printf("%f\t", (double) pop1[j][k] / (sum_two_mut[j]));
-    }
-  printf("\n");
-  }
-  printf("\n");
 
   printf("Joint probability distribution of mutations to bases conditional on two mutations\n");
   printf("Row: first mutation, Column: second mutation\n");
