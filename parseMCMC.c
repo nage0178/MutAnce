@@ -285,9 +285,25 @@ int parseMigration(gnode_t * node, char * migString, int currChar) {
 		currChar = parseMigration(node->right, migString, currChar);
 	} 
 
-      char* residualString = malloc(strlen(migString+currChar) + 1); /* Used so the original string isn't modified */
-      strcpy(residualString, migString + currChar);
+      	char* residualString = malloc(strlen(migString+currChar) + 1); /* Used so the original string isn't modified */
+      	strcpy(residualString, migString + currChar);
+
+      	regex_t regDecimal;
+      	int regCompiled, regMatch;
+      	/* Regex of decimal number */
+      	regCompiled = regcomp(&regDecimal, "^([0-9]+)((\\.)([0-9]+))$" , REG_EXTENDED);
+      	if (regCompiled == 1) {
+      	  fprintf(stderr, "Regular expression did not compile.\n");
+      	  exit(1);
+      	}
+
+	if (strchr(residualString, ':') == NULL) {
+        	fprintf(stderr, "Problem reading in migration file. Check the file is correct.\n");
+        	exit(1);
+	}
+      
       	char* pop = strtok(residualString, ":"); /*Note this function modified residualTreeString */
+
 
       	node->pop = xstrdup(pop);
 	// Could you move this inside the else? 
@@ -298,15 +314,21 @@ int parseMigration(gnode_t * node, char * migString, int currChar) {
 	if ((residualString + currChar2)[0] == ';') {
 		currChar2++;
 		free(residualString);
+      		regfree(&regDecimal);
 		return currChar + currChar2;
 
 	} else {
 		int index = 0;
 		int numME = 1;
+		// Count the number of migration events
 		while ((residualString + currChar2 + index)[0] != ';')  {
 			if ((residualString + currChar2 + index)[0] == '$')
 				numME++;
 			index++;
+		}
+		if (numME == 0 ) {
+      			fprintf(stderr, "Problem reading in migation file. Format incorrect. Check file.\n");
+			exit(1);
 		}
 
 		node->mi->me = xcalloc(numME, sizeof(migevent_t));
@@ -316,11 +338,22 @@ int parseMigration(gnode_t * node, char * migString, int currChar) {
 		while (currChar2 != '\0' &&  i < numME) {
 			// Make migration event
 			time = strtok(residualString + currChar2, "*");
+
+      			regMatch = regexec(&regDecimal, time, 0, NULL, 0);
+      			if (regMatch != 0) {
+      			  fprintf(stderr, "Problem reading in migation file. Time does not match the regular expression of a decimal number. Check file.\n");
+      			  exit(1);
+      			}
+
 			//Make migration event
 
       			node->mi->me[i].time = strtod(time, &ptr);
       	                currChar2 = currChar2 + strlen(time) + 1 ;
 
+			if (strchr(residualString + currChar2, '&') == NULL) {
+		        	fprintf(stderr, "Problem reading in migration file. Check the file is correct.\n");
+		        	exit(1);
+			}
 			
 			dest = strtok(residualString + currChar2, "&");
 			assert(! node->mi->me[i].target);
@@ -328,6 +361,11 @@ int parseMigration(gnode_t * node, char * migString, int currChar) {
 			node->mi->me[i].target = xmalloc((strlen(dest) + 1) * sizeof(char));
 			strcpy(node->mi->me[i].target, dest);
       	                currChar2 = currChar2 + strlen(dest) + 1 ;
+
+			if (strchr(residualString + currChar2, '$') == NULL && strchr(residualString + currChar2, ';') == NULL ) {
+		        	fprintf(stderr, "Problem reading in migration file. Check the file is correct.\n");
+		        	exit(1);
+			}
 
 			source = strtok(residualString + currChar2, "$;");
 			node->mi->me[i].source = xmalloc((strlen(source) + 1) * sizeof(char));
@@ -339,10 +377,14 @@ int parseMigration(gnode_t * node, char * migString, int currChar) {
 
 			
 		}
-		assert(i == numME);
+		if (i != numME) {
+			fprintf(stderr, "Problem reading in migration file. Check the file is correct.\n");
+			exit(1);
+		}
 	}
 
 	free(residualString);
+      	regfree(&regDecimal);
 	return currChar + currChar2; 
 }
 
