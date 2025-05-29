@@ -25,7 +25,7 @@ To use the program, you must first run bpp. The example uses an older version of
 cd ../
 git clone https://github.com/bpp/bpp.git
 cd bpp
-git checkout devAnna
+git checkout mutanceDev
 ```
 
 Then compile the program.
