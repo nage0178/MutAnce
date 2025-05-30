@@ -329,6 +329,7 @@ int main (int argc, char * argv[])
   	freeTrees(tree);
   }
 
+  printf("\n");
 
   summary(mutationHist, varsite, samples, msa, opt_site);
   

@@ -412,7 +412,6 @@ void summary (mutHist_t ** mutationHist, int varsite, long samples, msa_t * msa,
   printf("\n\n");
 
 
-  printf("\n\n");
   printf("2_mut_time_2\t");
   for (int i = 0; i < varsite; ++i)
   {
