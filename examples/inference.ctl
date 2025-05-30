@@ -2,8 +2,7 @@ seed = 1
 
 seqfile =  simulate_IM.txt
 Imapfile = simple.Imap.txt
-outfile =  outfile.txt
-mcmcfile = mcmc.txt
+jobname = out
 
 # fixed species tree
 species&tree = 3 A B C
@@ -25,17 +24,15 @@ model = HKY
 tauprior = gamma 50 100000
 thetaprior = gamma 50 100000
 
-# finetune for GBtj, GBspr, theta, tau, mix, locusrate, seqerr
-finetune =  1: 5 0.001 0.001  0.00001 0.3 0.33 1.0  
-
 # MCMC samples, locusrate, heredityscalars, Genetrees
 print = 1 0 0 1 1
 burnin = 10000
 sampfreq = 8
 nsample = 50000
-printlocus = 1 1 
+printlocus = 2 1 3
 
-migprior = 17 100
+wprior = 15 .01
 migration = 2
 A B 
 B A 
+

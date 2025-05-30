@@ -22,13 +22,15 @@ phase =   0 0 0
 loci&length = 5 1000
 clock = 1
 locusrate =0
-printlocus = 1 1
+printlocus = 2 1 3
 model = 7
 basefreqs = 1 .27 .23 .28 .22
 qrates = 1 8 1 1 1 1 8
 
 
 migration = 2
-A B  0.15
-B A  0.2
+A B  1363
+B A  1632
+#A B  0.15
+#B A  0.2
 

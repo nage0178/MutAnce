@@ -1,13 +1,10 @@
 seed = 1
 
-gtreefile = outfile.txt.gtree.L1
-
-migfile = outfile.txt.mig.L1
-
-
+locus = 1
 seqfile = simulate_IM.txt
 
-HKYfile = locus.1.sample.txt 
+gtreefile = out.gtree.L1
+migfile = out.mig.L1
+HKYfile = out.locus_1_params_sample.txt
 
-locus = 1
-*site =90
+site = 310 
