@@ -26,9 +26,9 @@ thetaprior = gamma 50 100000
 
 # MCMC samples, locusrate, heredityscalars, Genetrees
 print = 1 0 0 1 1
-burnin = 10000
-sampfreq = 8
-nsample = 50000
+burnin = 2000
+sampfreq = 4
+nsample = 10000
 printlocus = 2 1 3
 
 wprior = 15 .01
