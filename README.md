@@ -19,7 +19,7 @@ You must have a C compiler, such as gcc or clang, installed to compile the progr
 To use the make command, you must have the make system installed.
 
 ## Download and Compile bpp
-To use the program, you must first run bpp. The example uses an older version of bpp, so download bpp and switch branches.
+To use the program, you must first run bpp. The example uses a development branch of bpp, so download bpp and switch branches.
 
 ```
 cd ../
