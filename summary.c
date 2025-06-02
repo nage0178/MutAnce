@@ -302,7 +302,7 @@ void summary (mutHist_t ** mutationHist, int varsite, long samples, msa_t * msa,
   }
   printf("\n");
 
-  printf("mean_time\t");
+  printf("mean_time     \t");
   double * mean = xcalloc(varsite , sizeof(double));
   for (int i = 0; i < varsite; ++i)
   {
@@ -423,7 +423,7 @@ void summary (mutHist_t ** mutationHist, int varsite, long samples, msa_t * msa,
 
   printf("\n2_mut_02.5_HPD_1\t"); 
   for (int i = 0; i < varsite; ++i)
-    fprintf(stdout, "%.10f", hpd025[varsite * 2 + i]);
+    fprintf(stdout, "%.10f\t", hpd025[varsite * 2 + i]);
  
   printf("\n2_mut_97.5_HPD_1\t"); 
   for (int i = 0; i < varsite; ++i)
@@ -483,10 +483,10 @@ void summary (mutHist_t ** mutationHist, int varsite, long samples, msa_t * msa,
   for (int k = 0; k < varsite; k++) {
     printf("site %d\n", variableSites[k] + 1 );
 
-    printf("\t\t%c       \t%c       \t%c       \t%c\n", dna[0], dna[1], dna[2], dna[3]);
+    printf("\t%c       \t%c       \t%c       \t%c\n", dna[0], dna[1], dna[2], dna[3]);
     /* First mutation */
     for (int i = 0; i < 4; i++) {
-      printf("\t%c\t", dna[i]);
+      printf("%c\t", dna[i]);
 
       /* Second mutation (forward time) */
       for (int j = 0; j < 4; j++) {
