@@ -16,6 +16,7 @@ cd MutAnce/
 make
 ```
 You must have a C compiler, such as gcc or clang, installed to compile the program.
+You also must have the GNU Scientific Library installed.
 To use the make command, you must have the make system installed.
 
 ## Download and Compile bpp
@@ -33,6 +34,11 @@ Then compile the program.
 ```
 cd src
 make
+```
+If you have installed the GNU scientific Library with Homebrew, use the following make command instead. 
+
+```
+make Makefile.Mac_homebrew
 ```
 
 ## Running the example
