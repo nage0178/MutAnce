@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS =  -g  -Wall -O3
+CFLAGS =  -g  -Wall -I/opt/homebrew/include -L/opt/homebrew/lib -O3
 LIBS=-lgsl -lgslcblas -lm 
 
 MutAnce: MutAnce.o parseMCMC.o util.o phylip.o maps.o variantSites.o likelihood.o simulate.o cfile.o list.o summary.o
